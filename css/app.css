@@ -123,6 +123,20 @@ header {
       width: 100%;
     }
 
+  .compass__bezel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+    .compass__bezel__ring {
+      height: 100%;
+      width: 100%;
+    }
+
+
 
 
 
