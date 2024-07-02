@@ -12,8 +12,8 @@
   };
 
 
-  // the outer part of the compass that rotates
-  var rose = document.getElementById("rose");
+  // the needle of the compass that rotates
+  var pointer = document.getElementById("pointer");
 
 
   // elements that ouput our position
@@ -195,11 +195,11 @@
       positionHng.textContent = (360 - phase | 0) + "°";
 
 
-      // apply rotation to compass rose
-      if (typeof rose.style.transform !== "undefined") {
-        rose.style.transform = "rotateZ(" + positionCurrent.hng + "deg)";
-      } else if (typeof rose.style.webkitTransform !== "undefined") {
-        rose.style.webkitTransform = "rotateZ(" + positionCurrent.hng + "deg)";
+      // apply rotation to compass pointer
+      if (typeof pointer.style.transform !== "undefined") {
+        pointer.style.transform = "rotateZ(" + positionCurrent.hng + "deg)";
+      } else if (typeof pointer.style.webkitTransform !== "undefined") {
+        pointer.style.webkitTransform = "rotateZ(" + positionCurrent.hng + "deg)";
       }
     } else {
       // device can't show heading
