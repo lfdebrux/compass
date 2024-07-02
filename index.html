@@ -40,40 +40,28 @@
 
     <div class="compass">
 
-      <div id="rose" class="compass__rose">
+      <div id="pointer" class="compass__rose">
 
-        <svg class="compass__rose__dial" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <svg class="compass__rose__card" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
 
-          <circle cx="65" cy="65" r="56" stroke="white" stroke-width="1" fill="none" />
-          <polyline points="63,9  67,9  65,13" fill="white"/>
-          <polyline points="121,63  121,67  119,65" fill="white"/>
-          <polyline points="63,121  67,121  65,119" fill="white"/>
-          <polyline points="9,63  9,67  11,65" fill="white"/>
+          <circle cx="65" cy="65" r="56" stroke="white" stroke-width="1" fill="white" />
 
-          <text x="65" y="4.2" font-size="5" text-anchor="middle" fill="white">N</text>
-          <text x="127" y="67" font-size="5" text-anchor="middle" fill="white">E</text>
-          <text x="65" y="129" font-size="5" text-anchor="middle" fill="white">S</text>
-          <text x="2.8" y="67" font-size="5" text-anchor="middle" fill="white">W</text>
+          <text x="65" y="18.2" font-size="8" text-anchor="middle" fill="black">N</text>
+          <text x="113" y="67" font-size="8" text-anchor="middle" fill="black">E</text>
+          <text x="65" y="115" font-size="8" text-anchor="middle" fill="black">S</text>
+          <text x="16.8" y="67" font-size="8" text-anchor="middle" fill="black">W</text>
+
+          <polyline points="55,40  75,40  65,25" fill="black"/>
 
         </svg>
 
-      </div>
-
-      <div id="pointer" class="compass__pointer">
-        <svg class="compass__pointer__needle" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
-
-          <polyline points="60,60  70,60  65,15" fill="#b60000"/>
-          <polyline points="60,70  70,70  65,115" fill="white"/>
-          <circle cx="65" cy="65" r="7" stroke="#b60000" stroke-width="7" fill="none" />
-
-        </svg>
       </div>
 
       <div class="compass__lubberline">
         <svg class="compass__lubberline__lines" viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
 
-          <line x1="60" x2="60" y1="10" y2="120" stroke="red"/>
-          <line x1="70" x2="70" y1="10" y2="120" stroke="red"/>
+          <line x1="60" x2="60" y1="10" y2="120" stroke="#b60000"/>
+          <line x1="70" x2="70" y1="10" y2="120" stroke="#b60000"/>
 
         </svg>
       </div>
