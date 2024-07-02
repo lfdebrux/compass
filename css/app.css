@@ -123,6 +123,19 @@ header {
       width: 100%;
     }
 
+  .compass__lubberline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+    .compass__lubberline__lines {
+      height: 100%;
+      width: 100%;
+    }
+
 
 
 
