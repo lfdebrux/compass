@@ -12,9 +12,15 @@
   };
 
 
+  var compass = document.getElementById("compass");
+
   // the needle of the compass that rotates
   var pointer = document.getElementById("pointer");
 
+  // the bezel that rotates the indicator
+  var bezel = document.getElementById("bezel");
+  var bezelRotation = 0;
+  var bezelPreviousEvent = null;
 
   // elements that ouput our position
   var positionLat = document.getElementById("position-lat");
@@ -207,6 +213,54 @@
       positionHng.textContent = "n/a";
       showHeadingWarning();
     }
+  }
+
+  function startRotateBezel(event) {
+    bezelPreviousEvent = event;
+  }
+
+  function stopRotateBezel(event) {
+    bezelPreviousEvent = null;
+  }
+
+  // called on pointer events
+  function rotateBezel(event) {
+    /*
+    var rotation = Math.atan2(event.y, event.x)
+
+    browserRotateElement(bezel, rotation * 180/Math.pi)
+    */
+
+    if (bezelPreviousEvent == null) {
+      return
+    }
+
+    var compassCoords = compass.getBoundingClientRect()
+
+    var x1 = +(bezelPreviousEvent.clientX - (compassCoords.x + compassCoords.width /2));
+    var y1 = -(bezelPreviousEvent.clientY - (compassCoords.y + compassCoords.height/2));
+
+    var x2 = +(event.clientX - (compassCoords.x + compassCoords.width /2));
+    var y2 = -(event.clientY - (compassCoords.y + compassCoords.height/2));
+
+    var a1 = -Math.atan2(y1, x1)
+    var a2 = -Math.atan2(y2, x2)
+
+    var da = a2 - a1;
+
+    // console.log(`(${x1}, ${y1}) -> (${x2}, ${y2})`);
+
+    // console.log(`${bezelRotation} + ${da}`)
+
+    bezelRotation = (bezelRotation + da)
+
+    bezel.style.transform = `rotateZ(${bezelRotation}rad)`;
+
+    // console.log(bezel.style.transform)
+
+    bezelPreviousEvent = event;
+
+    // console.log("")
   }
 
   function showHeadingWarning() {
@@ -403,6 +457,10 @@
   btnLockOrientation.addEventListener("click", toggleOrientationLock);
   btnNightmode.addEventListener("click", toggleNightmode);
   btnMap.addEventListener("click", openMap);
+
+  bezel.addEventListener("pointerdown", startRotateBezel);
+  bezel.addEventListener("pointerup", stopRotateBezel);
+  bezel.addEventListener("pointermove", rotateBezel);
 
   var i;
   for (i=0; i<btnsPopup.length; i++) {
