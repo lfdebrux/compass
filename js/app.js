@@ -148,6 +148,18 @@
   }
 
 
+  // add event listeners for orientation and position change
+  function browserAddOrientationPositionListeners() {
+    window.addEventListener("deviceorientation", onHeadingChange);
+
+    navigator.geolocation.watchPosition(locationUpdate, locationUpdateFail, {
+      enableHighAccuracy: false,
+      maximumAge: 30000,
+      timeout: 27000
+    });
+  }
+
+
   // called on device orientation change
   function onHeadingChange(event) {
     var heading = event.alpha;
@@ -393,7 +405,7 @@
     debugOrientationDefault.textContent = defaultOrientation;
   }
 
-  window.addEventListener("deviceorientation", onHeadingChange);
+  browserAddOrientationPositionListeners();
 
   document.addEventListener("fullscreenchange", onFullscreenChange);
   document.addEventListener("webkitfullscreenchange", onFullscreenChange);
@@ -411,12 +423,6 @@
 
   popup.addEventListener("click", popupClose);
   popupContents.addEventListener("click", popupContentsClick);
-
-  navigator.geolocation.watchPosition(locationUpdate, locationUpdateFail, {
-    enableHighAccuracy: false,
-    maximumAge: 30000,
-    timeout: 27000
-  });
 
   setNightmode(false);
   checkLockable();
