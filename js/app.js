@@ -154,6 +154,18 @@
   }
 
 
+  // add event listeners for orientation and position change
+  function browserAddOrientationPositionListeners() {
+    window.addEventListener("deviceorientation", onHeadingChange);
+
+    navigator.geolocation.watchPosition(locationUpdate, locationUpdateFail, {
+      enableHighAccuracy: false,
+      maximumAge: 30000,
+      timeout: 27000
+    });
+  }
+
+
   // called on device orientation change
   function onHeadingChange(event) {
     var heading = event.alpha;
@@ -417,6 +429,20 @@
     event.stopPropagation();
   }
 
+  function popupRequestPermission() {
+    window.DeviceOrientationEvent
+      .requestPermission()
+      .then(function(response) {
+        if (response == "granted") {
+          console.log("deviceorientation permission granted");
+          browserAddOrientationPositionListeners();
+        }
+      })
+      .catch(function(error) {
+        console.error("Unable to use DeviceOrientation API:", error);
+      });
+  }
+
   function decimalToSexagesimal(decimal, type) {
     var degrees = decimal | 0;
     var fraction = Math.abs(decimal - degrees);
@@ -447,7 +473,14 @@
     debugOrientationDefault.textContent = defaultOrientation;
   }
 
-  window.addEventListener("deviceorientation", onHeadingChange);
+  browserAddOrientationPositionListeners();
+
+  if ( window.DeviceOrientationEvent !== undefined && typeof window.DeviceOrientationEvent.requestPermission === 'function' ) {
+    popup.addEventListener("click", popupRequestPermission, { once: true });
+    popupOpen("requestpermission");
+  } else {
+    browserAddOrientationPositionListeners();
+  }
 
   document.addEventListener("fullscreenchange", onFullscreenChange);
   document.addEventListener("webkitfullscreenchange", onFullscreenChange);
@@ -469,12 +502,6 @@
 
   popup.addEventListener("click", popupClose);
   popupContents.addEventListener("click", popupContentsClick);
-
-  navigator.geolocation.watchPosition(locationUpdate, locationUpdateFail, {
-    enableHighAccuracy: false,
-    maximumAge: 30000,
-    timeout: 27000
-  });
 
   setNightmode(false);
   checkLockable();
